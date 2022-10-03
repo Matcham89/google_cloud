@@ -1,6 +1,6 @@
 # Load the config yaml from the root of the repo
 locals {
-  foundation_config = yamldecode(file("../foundation_config.yaml"))
+  foundation_config = yamldecode(file("./foundation_config.yaml"))
 }
 
 # Load individual values from the config yaml
