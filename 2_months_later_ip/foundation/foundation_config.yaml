@@ -1,19 +1,19 @@
 ---
 # The org that will host the secure foundation
-org_id: org_id
+org_id: 388347670233
 
 # Organization domain
 org_domain: ""
 
 # Where the secure foundation should be deployed. Will normally be the same as org, but may differ
 # if for example it is to be installed in a sub folder
-parent_id: "organizations/org_id"
+parent_id: "folders/468303603445"
 
 # Names  for the new secure foundation
-foundation_name: ""
+foundation_name: "cjm"
 
 # Billing account details
-billing_account: ""
+billing_account: "0119B9-36A410-C6B39B"
 billing_admins: [""]
 billing_creators: [""]
 customer_id: ""
@@ -30,7 +30,7 @@ apply_org_priv: False
 # List of Admins for this secure foundation. These users/group get owner priv on the secure
 # foundation.  If "apply_org_priv" is true they will also get orgAdmin on the org
 super_admins:
-  - "user:"
+  - "user:chris.matcham@appsbroker.com"
 
 # An email address for recieving Google support access requests
 admin_notifications:
@@ -45,7 +45,7 @@ tenant_repo_location: "github_google_cloud"
 
 # Billing logs are not alwarys required. Especially when multiple foundations are deployed
 make_billing_logs: True
-billing_log_owners: ["user:"]
+billing_log_owners: ["user:chris.matchan@appsbroker.com"]
 billing_log_readers: []
 
 # The secure fondation deploys initial infra and   s the setting
