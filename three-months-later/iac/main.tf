@@ -1,8 +1,65 @@
 
+##############################################################################################################################################
+############################################################### VPC NETWORK ##################################################################
+##############################################################################################################################################
+
+module "vpc" {
+    source  = "terraform-google-modules/network/google"
+    version = "~> 4.0"
+
+    project_id   = var.project_id
+    network_name = var.network_id
+    routing_mode = "GLOBAL"
+
+    subnets = [
+        {
+            subnet_name           = "subnet-01"
+            subnet_ip             = "10.10.20.0/24"
+            subnet_region         = var.default_region
+            subnet_private_access = "true"
+            subnet_flow_logs      = "true"
+            description           = "GKE Subnet"
+        },
+    ]
+
+    secondary_ranges = {
+        subnet-01 = [
+            {
+                range_name    = "subnet-01-secondary-01"
+                ip_cidr_range = "192.168.64.0/24"
+            },
+        ]
+        subnet-02 = [
+            {
+                range_name    = "subnet-01-secondary-02"
+                ip_cidr_range = "192.168.64.0/24"
+            },
+        ]
+    }
+
+#     routes = [
+#         {
+#             name                   = "egress-internet"
+#             description            = "route through IGW to access internet"
+#             destination_range      = "0.0.0.0/0"
+#             tags                   = "egress-inet"
+#             next_hop_internet      = "true"
+#         },
+#         {
+#             name                   = "app-proxy"
+#             description            = "route through proxy to reach app"
+#             destination_range      = "10.50.10.0/24"
+#             tags                   = "app-proxy"
+#             next_hop_instance      = "app-proxy-instance"
+#             next_hop_instance_zone = "us-west1-a"
+#         },
+#     ]
+}
 
 
-
-### GKE Build ###
+##############################################################################################################################################
+############################################################### GKE BUILD ##################################################################
+##############################################################################################################################################
 
 # google_client_config and kubernetes provider must be explicitly specified like the following.
 data "google_client_config" "default" {}
@@ -19,8 +76,8 @@ module "gke" {
   name                       = "cluster-1"
   region                     = var.cluster_region
   zones                      = var.zonal_regions
-  network                    = ""
-  subnetwork                 = "us-central1-01"
+  network                    = module.vpc.network_name
+  subnetwork                 = 
   ip_range_pods              = "us-central1-01-gke-01-pods"
   ip_range_services          = "us-central1-01-gke-01-services"
   http_load_balancing        = false
