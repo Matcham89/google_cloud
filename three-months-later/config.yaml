@@ -1,0 +1,10 @@
+# The name of the project
+project_id: "three-months-later"
+
+# Supported Regions
+default_region:
+  region: "europe-west2"
+other_regions:
+  region: "europe-west3"
+
+
